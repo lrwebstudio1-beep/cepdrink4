@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cep Drink — Coffee, Drinks & Good Vibes · Tirana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─── VARIABLES ─── */
+:root {
+  --cream:    #faf6ef;
+  --warm:     #f5ede0;
+  --terra:    #c8653a;
+  --terra2:   #e07a52;
+  --sage:     #7a9e7e;
+  --sage-lt:  #b8d4bb;
+  --brown:    #2e1a0e;
+  --brown2:   #4a2c18;
+  --gold:     #d4a853;
+  --gold-lt:  #f0d49a;
+  --text:     #2e1a0e;
+  --muted:    #7a6152;
+  --light-muted: #b09e90;
+  --white:    #ffffff;
+  --border:   rgba(46,26,14,0.1);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+img { display: block; width: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── CUSTOM CURSOR ─── */
+#cur {
+  position: fixed; z-index: 9999;
+  width: 14px; height: 14px;
+  background: var(--terra);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: width .25s, height .25s, background .25s, border-radius .25s;
+  mix-blend-mode: multiply;
+}
+#cur-ring {
+  position: fixed; z-index: 9998;
+  width: 40px; height: 40px;
+  border: 2px solid var(--terra);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  opacity: 0.45;
+  transition: transform .35s cubic-bezier(.17,.67,.83,.67), width .3s, height .3s, opacity .3s;
+}
+.hover-cursor #cur { width: 48px; height: 48px; background: var(--gold); border-radius: 50%; }
+.hover-cursor #cur-ring { opacity: 0; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.6rem 5vw;
+  transition: background .4s, padding .4s, box-shadow .4s;
+}
+nav.stuck {
+  background: rgba(250,246,239,0.95);
+  backdrop-filter: blur(16px);
+  padding: 1rem 5vw;
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brown);
+  letter-spacing: -.02em;
+}
+.nav-logo em { color: var(--terra); font-style: normal; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'Syne', sans-serif;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--terra); }
+.nav-pill {
+  font-family: 'Syne', sans-serif;
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: var(--terra); color: var(--white);
+  padding: .65rem 1.5rem; border-radius: 100px;
+  transition: background .25s, transform .2s;
+}
+.nav-pill:hover { background: var(--brown); transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-left {
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 4vw 6rem 5vw;
+  position: relative; z-index: 2;
+  background: var(--cream);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--gold-lt); border-radius: 100px;
+  padding: .4rem 1.1rem;
+  font-family: 'Syne', sans-serif;
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brown2); margin-bottom: 2rem;
+  width: fit-content;
+  animation: fadeUp .7s ease both;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 900; line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--brown);
+  margin-bottom: 1rem;
+  animation: fadeUp .7s ease .1s both;
+}
+.hero-title .script {
+  display: block;
+  font-style: italic;
+  color: var(--terra);
+}
+.hero-tag {
+  font-size: 1.1rem; font-weight: 300; line-height: 1.65;
+  color: var(--muted); max-width: 400px;
+  margin-bottom: 3rem;
+  animation: fadeUp .7s ease .2s both;
+}
+.hero-btns {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp .7s ease .3s both;
+}
+.btn-fill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: var(--terra); color: var(--white);
+  padding: 1rem 2rem; border-radius: 100px;
+  border: none; cursor: none;
+  transition: background .25s, transform .2s, box-shadow .25s;
+}
+.btn-fill:hover { background: var(--brown); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,101,58,.3); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; color: var(--brown);
+  padding: 1rem 2rem; border-radius: 100px;
+  border: 2px solid var(--border);
+  cursor: none;
+  transition: border-color .25s, color .25s, transform .2s;
+}
+.btn-outline:hover { border-color: var(--terra); color: var(--terra); transform: translateY(-2px); }
+.hero-meta {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-top: 3.5rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .7s ease .4s both;
+}
+.hero-meta-stat { display: flex; flex-direction: column; gap: .2rem; }
+.hero-meta-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 900; color: var(--terra);
+  line-height: 1;
+}
+.hero-meta-lbl {
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--light-muted);
+}
+.meta-div { width: 1px; height: 36px; background: var(--border); }
+
+.hero-right {
+  position: relative; overflow: hidden;
+}
+.hero-img-wrap {
+  position: absolute; inset: 0;
+}
+.hero-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.05);
+  animation: imgReveal 1.2s cubic-bezier(.25,.46,.45,.94) both;
+}
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--cream) 0%, transparent 20%),
+              linear-gradient(to top, rgba(46,26,14,.15) 0%, transparent 50%);
+}
+
+@keyframes imgReveal {
+  from { transform: scale(1.12); opacity: 0; }
+  to   { transform: scale(1.05); opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-bar {
+  background: var(--terra);
+  padding: .85rem 0;
+  overflow: hidden;
+  position: relative;
+}
+.marquee-inner {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: marquee 18s linear infinite;
+}
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 1.2rem;
+  padding: 0 2.5rem;
+  font-family: 'Syne', sans-serif;
+  font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+.marquee-item .dot-sep { color: var(--gold-lt); font-size: 1.2rem; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── SECTION COMMONS ─── */
+.sec { padding: 7rem 5vw; }
+.sec-sm { padding: 4rem 5vw; }
+.tag {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: 'Syne', sans-serif;
+  font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 1.2rem;
+}
+.tag::before { content: ''; width: 1.5rem; height: 2px; background: var(--terra); border-radius: 2px; }
+.display {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900; letter-spacing: -.02em; line-height: 1.05;
+}
+.display em { color: var(--terra); font-style: italic; }
+
+/* ─── ABOUT ─── */
+.about { background: var(--warm); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center; max-width: 1200px; margin: 0 auto;
+}
+.about-imgs {
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
+  gap: 1rem; position: relative;
+}
+.about-img-main {
+  grid-column: 1 / -1; border-radius: 16px; overflow: hidden; height: 280px;
+}
+.about-img-sm { border-radius: 12px; overflow: hidden; height: 180px; }
+.about-sticker {
+  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  width: 90px; height: 90px;
+  background: var(--terra); border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: .65rem; font-weight: 800;
+  letter-spacing: .05em; text-transform: uppercase; color: var(--white); text-align: center;
+  line-height: 1.3;
+  box-shadow: 0 10px 30px rgba(200,101,58,.35);
+  animation: spin 10s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.about-text { display: flex; flex-direction: column; gap: 1.5rem; }
+.about-text p { font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: var(--muted); }
+.about-pills { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: .5rem; }
+.pill {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 100px; padding: .5rem 1.1rem;
+  font-family: 'Syne', sans-serif; font-size: .75rem; font-weight: 600;
+  color: var(--brown2); transition: background .2s, border-color .2s, transform .2s;
+}
+.pill:hover { background: var(--terra); color: var(--white); border-color: var(--terra); transform: translateY(-2px); }
+
+/* ─── MENU ─── */
+.menu { background: var(--cream); }
+.menu-header { max-width: 1200px; margin: 0 auto 4rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.menu-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.menu-card {
+  background: var(--white);
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform .3s, box-shadow .3s;
+  cursor: none;
+}
+.menu-card:hover { transform: translateY(-6px); box-shadow: 0 16px 50px rgba(46,26,14,.12); }
+.menu-card-img { height: 200px; overflow: hidden; position: relative; }
+.menu-card-img img { height: 100%; transition: transform .5s; }
+.menu-card:hover .menu-card-img img { transform: scale(1.08); }
+.menu-card-badge {
+  position: absolute; top: .75rem; left: .75rem;
+  background: var(--terra); color: var(--white);
+  font-family: 'Syne', sans-serif; font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: .3rem .75rem; border-radius: 100px;
+}
+.menu-card-body { padding: 1.5rem; }
+.menu-card-icon { font-size: 1.4rem; margin-bottom: .6rem; }
+.menu-card-name {
+  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+  color: var(--brown); margin-bottom: .4rem;
+}
+.menu-card-desc { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+
+/* ─── GALLERY ─── */
+.gallery { background: var(--warm); }
+.gallery-header { max-width: 1200px; margin: 0 auto 3rem; }
+.gallery-masonry {
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 220px 220px;
+  gap: 1rem;
+}
+.g-item {
+  border-radius: 14px; overflow: hidden;
+  position: relative; cursor: none;
+}
+.g-item img { height: 100%; object-fit: cover; transition: transform .5s; }
+.g-item:hover img { transform: scale(1.08); }
+.g-item .g-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(46,26,14,.5) 0%, transparent 60%);
+  opacity: 0; transition: opacity .3s;
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.g-item:hover .g-overlay { opacity: 1; }
+.g-label {
+  font-family: 'Syne', sans-serif; font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--white);
+}
+/* Gallery layout */
+.g-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+.g-item:nth-child(2) { grid-column: 2; grid-row: 1 / 3; }
+.g-item:nth-child(3) { grid-column: 3; grid-row: 1; }
+.g-item:nth-child(4) { grid-column: 4; grid-row: 1; }
+.g-item:nth-child(5) { grid-column: 1; grid-row: 2; }
+.g-item:nth-child(6) { grid-column: 3; grid-row: 2; }
+.g-item:nth-child(7) { grid-column: 4; grid-row: 2; }
+
+/* ─── REVIEWS ─── */
+.reviews { background: var(--brown); }
+.reviews .tag { color: var(--gold-lt); }
+.reviews .tag::before { background: var(--gold); }
+.reviews .display { color: var(--cream); }
+.reviews-header { max-width: 1200px; margin: 0 auto 4rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.reviews-score {
+  text-align: right;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.score-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 900; color: var(--gold);
+  line-height: 1;
+}
+.score-stars { font-size: 1.1rem; letter-spacing: .05em; }
+.score-count { font-size: .75rem; color: rgba(245,240,232,.4); letter-spacing: .1em; text-transform: uppercase; }
+.reviews-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.rev-card {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px; padding: 2rem;
+  transition: background .3s, transform .3s, border-color .3s;
+  cursor: none; position: relative; overflow: hidden;
+}
+.rev-card::before {
+  content: '"'; position: absolute; top: -.5rem; right: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 7rem; font-weight: 900;
+  color: rgba(212,168,83,.08); line-height: 1; pointer-events: none;
+}
+.rev-card:hover { background: rgba(255,255,255,.09); transform: translateY(-4px); border-color: rgba(212,168,83,.25); }
+.rev-stars { font-size: .95rem; margin-bottom: 1.2rem; letter-spacing: .05em; }
+.rev-text { font-size: .95rem; font-weight: 300; line-height: 1.7; color: rgba(245,240,232,.8); font-style: italic; margin-bottom: 1.5rem; }
+.rev-author { display: flex; align-items: center; gap: .75rem; }
+.rev-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--terra); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
+}
+.rev-name { font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 700; color: var(--cream); }
+.rev-loc { font-size: .72rem; color: rgba(245,240,232,.4); }
+
+/* ─── LOCATION ─── */
+.location-sec { background: var(--cream); }
+.location-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+.map-frame { border-radius: 20px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 4/3; }
+.map-frame iframe { width: 100%; height: 100%; border: 0; }
+.loc-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.loc-card {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.5rem; background: var(--warm);
+  border: 1px solid var(--border); border-radius: 14px;
+  transition: border-color .25s, transform .25s;
+}
+.loc-card:hover { border-color: var(--terra); transform: translateX(4px); }
+.loc-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--terra); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.loc-label { font-family: 'Syne', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--terra); margin-bottom: .3rem; }
+.loc-val { font-size: .95rem; color: var(--brown2); line-height: 1.5; }
+.loc-btns { display: flex; gap: 1rem; margin-top: .5rem; flex-wrap: wrap; }
+
+/* ─── CTA ─── */
+.cta-sec {
+  background: linear-gradient(135deg, var(--terra) 0%, #a0482a 100%);
+  text-align: center; padding: 7rem 5vw;
+  position: relative; overflow: hidden;
+}
+.cta-sec::before {
+  content: '☕';
+  position: absolute; top: -2rem; left: -2rem;
+  font-size: 18rem; opacity: .04; pointer-events: none;
+  animation: decoFloat 6s ease-in-out infinite;
+}
+.cta-sec::after {
+  content: '🍹';
+  position: absolute; bottom: -2rem; right: -2rem;
+  font-size: 14rem; opacity: .05; pointer-events: none;
+  animation: decoFloat 8s ease-in-out infinite reverse;
+}
+@keyframes decoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+.cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.cta-sec .tag { color: rgba(255,255,255,.7); justify-content: center; }
+.cta-sec .tag::before { background: rgba(255,255,255,.5); }
+.cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900; letter-spacing: -.02em; line-height: 1.05;
+  color: var(--white); margin-bottom: 1.25rem;
+}
+.cta-title em { font-style: italic; color: var(--gold-lt); }
+.cta-sub { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 2.5rem; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: var(--white); color: var(--terra);
+  padding: 1rem 2rem; border-radius: 100px;
+  cursor: none; transition: background .25s, transform .2s;
+}
+.btn-white:hover { background: var(--cream); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; color: var(--white);
+  padding: 1rem 2rem; border-radius: 100px;
+  border: 2px solid rgba(255,255,255,.4);
+  cursor: none; transition: border-color .25s, transform .2s;
+}
+.btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--brown);
+  padding: 3.5rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.4rem; font-weight: 700; color: var(--cream);
+}
+.footer-logo em { color: var(--gold); font-style: normal; }
+.footer-copy { font-size: .78rem; color: rgba(245,240,232,.35); }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a {
+  font-family: 'Syne', sans-serif; font-size: .72rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(245,240,232,.4); transition: color .2s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+.reveal-d4 { transition-delay: .4s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .menu-grid { grid-template-columns: repeat(2,1fr); }
+  .gallery-masonry { grid-template-columns: repeat(2,1fr); grid-template-rows: unset; }
+  .g-item:nth-child(n) { grid-column: unset; grid-row: unset; height: 200px; }
+  .g-item:nth-child(2) { height: 200px; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { height: 50vw; }
+  .hero-float-card { left: 2rem; }
+  .about-grid, .location-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  nav, .sec { padding-left: 1.2rem; padding-right: 1.2rem; }
+  nav.stuck { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .hero-left { padding: 6rem 1.2rem 4rem; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .gallery-masonry { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .about-imgs { grid-template-columns: 1fr; }
+  .about-img-main { grid-column: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursors -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Cep<em>.</em>Drink</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="tel:+355693225005" class="nav-pill">📞 Call Now</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-badge">⭐ 5.0 Rating · 10 Reviews · Tirana's Favourite Corner</div>
+    <h1 class="hero-title">
+      Cep
+      <span class="script">Drink</span>
+    </h1>
+    <p class="hero-tag">Your daily corner for coffee, drinks, and good vibes in the heart of Tirana.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-fill">☕ View Menu</a>
+      <a href="tel:+355693225005" class="btn-outline">📞 Call Now</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-stat">
+        <div class="hero-meta-num">5.0⭐</div>
+        <div class="hero-meta-lbl">Google Rating</div>
+      </div>
+      <div class="meta-div"></div>
+      <div class="hero-meta-stat">
+        <div class="hero-meta-num">6AM</div>
+        <div class="hero-meta-lbl">Opens Daily</div>
+      </div>
+      <div class="meta-div"></div>
+      <div class="hero-meta-stat">
+        <div class="hero-meta-num">10+</div>
+        <div class="hero-meta-lbl">Happy Reviews</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?w=1200&auto=format&fit=crop&q=80" alt="Cozy café atmosphere at Cep Drink">
+      <div class="hero-img-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-bar" aria-hidden="true">
+  <div class="marquee-inner">
+    <!-- repeat twice for seamless loop -->
+    <span class="marquee-item">☕ Espresso & Coffee <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🥤 Fresh Juices <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🍹 Cocktails & Drinks <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🥪 Sandwiches & Snacks <span class="dot-sep">·</span></span>
+    <span class="marquee-item">😊 Friendly Vibes <span class="dot-sep">·</span></span>
+    <span class="marquee-item">📍 Tirana, Albania <span class="dot-sep">·</span></span>
+    <span class="marquee-item">⭐ 5.0 Google Rating <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🕕 Opens at 6:00 AM <span class="dot-sep">·</span></span>
+    <!-- duplicate for loop -->
+    <span class="marquee-item">☕ Espresso & Coffee <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🥤 Fresh Juices <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🍹 Cocktails & Drinks <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🥪 Sandwiches & Snacks <span class="dot-sep">·</span></span>
+    <span class="marquee-item">😊 Friendly Vibes <span class="dot-sep">·</span></span>
+    <span class="marquee-item">📍 Tirana, Albania <span class="dot-sep">·</span></span>
+    <span class="marquee-item">⭐ 5.0 Google Rating <span class="dot-sep">·</span></span>
+    <span class="marquee-item">🕕 Opens at 6:00 AM <span class="dot-sep">·</span></span>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section class="about sec" id="about">
+  <div class="about-grid">
+    <div class="about-imgs reveal">
+      <div class="about-img-main">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=80" alt="Inside Cep Drink café" style="height:100%">
+      </div>
+      <div class="about-img-sm">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&auto=format&fit=crop&q=80" alt="Coffee at Cep Drink" style="height:100%">
+      </div>
+      <div class="about-img-sm">
+        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=500&auto=format&fit=crop&q=80" alt="Drinks at Cep Drink" style="height:100%">
+      </div>
+      <div class="about-sticker">Local<br>Fav ★</div>
+    </div>
+    <div class="about-text">
+      <div class="tag reveal">About Us</div>
+      <h2 class="display reveal reveal-d1">A warm corner<br>in the city of <em>Tirana</em></h2>
+      <p class="reveal reveal-d2">
+        Cep Drink is your neighbourhood café-bar tucked on Rruga Tish Dahia, Tirana. Whether you're grabbing your morning espresso, meeting a friend for drinks, or just needing a quiet spot to unwind — we're here for it.
+      </p>
+      <p class="reveal reveal-d2">
+        We believe great moments start with great service. Our team is always ready to welcome you with a smile, a fresh brew, and a relaxed atmosphere that feels like home.
+      </p>
+      <div class="about-pills reveal reveal-d3">
+        <span class="pill">☕ Great Coffee</span>
+        <span class="pill">🤝 Friendly Staff</span>
+        <span class="pill">🌿 Relaxed Vibe</span>
+        <span class="pill">🥪 Quick Bites</span>
+        <span class="pill">🏙️ Central Tirana</span>
+        <span class="pill">🕕 Open from 6 AM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MENU ─── -->
+<section class="menu sec" id="menu">
+  <div class="menu-header">
+    <div>
+      <div class="tag reveal">Our Menu</div>
+      <h2 class="display reveal reveal-d1">Something for <em>everyone</em></h2>
+    </div>
+    <p style="max-width:360px;color:var(--muted);font-size:.95rem;font-weight:300;line-height:1.7;" class="reveal reveal-d2">
+      From your first morning coffee to an evening drink with friends — we've got you covered.
+    </p>
+  </div>
+  <div class="menu-grid">
+
+    <div class="menu-card reveal">
+      <div class="menu-card-img">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop&q=80" alt="Coffee">
+        <div class="menu-card-badge">Fan Favourite</div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-icon">☕</div>
+        <div class="menu-card-name">Coffee & Espresso</div>
+        <div class="menu-card-desc">Rich espressos, creamy lattes, smooth cappuccinos — your morning ritual, sorted.</div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal reveal-d1">
+      <div class="menu-card-img">
+        <img src="https://images.unsplash.com/photo-1615478503562-ec2d8aa0e24e?w=600&auto=format&fit=crop&q=80" alt="Fresh drinks and juices">
+        <div class="menu-card-badge">Fresh Daily</div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-icon">🥤</div>
+        <div class="menu-card-name">Fresh Drinks & Juices</div>
+        <div class="menu-card-desc">Cold-pressed juices, iced teas, and refreshing seasonal drinks made fresh.</div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal reveal-d2">
+      <div class="menu-card-img">
+        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&auto=format&fit=crop&q=80" alt="Cocktails and beverages">
+        <div class="menu-card-badge">Evening Vibes</div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-icon">🍹</div>
+        <div class="menu-card-name">Cocktails & Beverages</div>
+        <div class="menu-card-desc">Refreshing mixed drinks, sodas, and house specials for a great evening out.</div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal reveal-d3">
+      <div class="menu-card-img">
+        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&auto=format&fit=crop&q=80" alt="Sandwiches and snacks">
+        <div class="menu-card-badge">Quick Bites</div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-icon">🥪</div>
+        <div class="menu-card-name">Sandwiches & Snacks</div>
+        <div class="menu-card-desc">Toasties, filled sandwiches, and light bites to keep you going through the day.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section class="gallery sec" id="gallery">
+  <div class="gallery-header">
+    <div class="tag reveal">Gallery</div>
+    <h2 class="display reveal reveal-d1">A glimpse of <em>the vibe</em></h2>
+  </div>
+  <div class="gallery-masonry">
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&auto=format&fit=crop&q=80" alt="Coffee close-up">
+      <div class="g-overlay"><span class="g-label">Morning Coffee</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&auto=format&fit=crop&q=80" alt="Café atmosphere">
+      <div class="g-overlay"><span class="g-label">Good Vibes</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80" alt="Fresh juice drinks">
+      <div class="g-overlay"><span class="g-label">Fresh Drinks</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80" alt="Relaxed café corner">
+      <div class="g-overlay"><span class="g-label">Chill Corner</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=600&auto=format&fit=crop&q=80" alt="Sandwich snacks">
+      <div class="g-overlay"><span class="g-label">Quick Bites</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&auto=format&fit=crop&q=80" alt="Cocktail drinks">
+      <div class="g-overlay"><span class="g-label">Evening Drinks</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&auto=format&fit=crop&q=80" alt="Café table setting">
+      <div class="g-overlay"><span class="g-label">The Atmosphere</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section class="reviews sec" id="reviews">
+  <div class="reviews-header">
+    <div>
+      <div class="tag">What People Say</div>
+      <h2 class="display reveal reveal-d1">Loved by the <em>neighbourhood</em></h2>
+    </div>
+    <div class="reviews-score reveal reveal-d1">
+      <div class="score-big">5.0</div>
+      <div class="score-stars">⭐⭐⭐⭐⭐</div>
+      <div class="score-count">Based on 10 Google Reviews</div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="rev-card reveal">
+      <div class="rev-stars">⭐⭐⭐⭐⭐</div>
+      <p class="rev-text">"Pleasant environment and good service. I always feel welcome here. Definitely will visit more often — it's become my favourite morning spot in Tirana."</p>
+      <div class="rev-author">
+        <div class="rev-avatar">A</div>
+        <div>
+          <div class="rev-name">Arjan M.</div>
+          <div class="rev-loc">Tiranë, Albania</div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-card reveal reveal-d1">
+      <div class="rev-stars">⭐⭐⭐⭐⭐</div>
+      <p class="rev-text">"Very nice place! The staff was very polite and respectful. The coffee is excellent and the atmosphere is exactly what you need after a long morning. Highly recommend."</p>
+      <div class="rev-author">
+        <div class="rev-avatar">B</div>
+        <div>
+          <div class="rev-name">Besa K.</div>
+          <div class="rev-loc">Tiranë, Albania</div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-card reveal reveal-d2">
+      <div class="rev-stars">⭐⭐⭐⭐⭐</div>
+      <p class="rev-text">"Great drinks and friendly atmosphere. A hidden gem on Rruga Tish Dahia. The team makes you feel like a regular from day one. This is the kind of neighbourhood bar everyone needs."</p>
+      <div class="rev-author">
+        <div class="rev-avatar">E</div>
+        <div>
+          <div class="rev-name">Erion D.</div>
+          <div class="rev-loc">Tiranë, Albania</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOCATION ─── -->
+<section class="location-sec sec" id="location">
+  <div class="location-grid">
+    <div>
+      <div class="tag reveal">Find Us</div>
+      <h2 class="display reveal reveal-d1">Come visit us<br>in <em>Tirana</em></h2>
+      <div class="loc-info" style="margin-top:2.5rem;">
+        <div class="loc-card reveal reveal-d1">
+          <div class="loc-icon">📍</div>
+          <div>
+            <div class="loc-label">Address</div>
+            <div class="loc-val">Rruga Tish Dahia, Tiranë, Albania<br><span style="color:var(--light-muted);font-size:.85rem;">Plus Code: 8R84+G2R</span></div>
+          </div>
+        </div>
+        <div class="loc-card reveal reveal-d2">
+          <div class="loc-icon">📞</div>
+          <div>
+            <div class="loc-label">Phone</div>
+            <div class="loc-val"><a href="tel:+355693225005" style="color:var(--brown2);">+355 69 322 5005</a></div>
+          </div>
+        </div>
+        <div class="loc-card reveal reveal-d3">
+          <div class="loc-icon">🕕</div>
+          <div>
+            <div class="loc-label">Opening Hours</div>
+            <div class="loc-val">Opens at 6:00 AM daily<br><span style="color:var(--sage);font-size:.85rem;">● Open now</span></div>
+          </div>
+        </div>
+        <div class="loc-btns reveal reveal-d3">
+          <a href="https://maps.google.com/?q=Rruga+Tish+Dahia+Tirane+Albania" target="_blank" class="btn-fill">📍 Get Directions</a>
+          <a href="tel:+355693225005" class="btn-outline">📞 Call Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="map-frame reveal reveal-d2">
+      <iframe
+        src="https://maps.google.com/maps?q=Rruga+Tish+Dahia,+Tiran%C3%AB,+Albania&output=embed&z=16"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Cep Drink location on Google Maps">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-sec" id="contact">
+  <div class="cta-inner">
+    <div class="tag">Come Say Hello</div>
+    <h2 class="cta-title">Your next great coffee is<br>just around the <em>corner</em></h2>
+    <p class="cta-sub">Whether it's your morning brew, a catch-up with friends, or just a place to relax — Cep Drink is always ready to welcome you. Stop by Rruga Tish Dahia anytime from 6 AM.</p>
+    <div class="cta-btns">
+      <a href="https://maps.google.com/?q=Rruga+Tish+Dahia+Tirane+Albania" target="_blank" class="btn-white">📍 Get Directions</a>
+      <a href="tel:+355693225005" class="btn-ghost">📞 +355 69 322 5005</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">Cep<em>.</em>Drink</div>
+  <div class="footer-copy">© 2025 Cep Drink · Rruga Tish Dahia, Tiranë, Albania</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#location">Location</a>
+    <a href="tel:+355693225005">Call</a>
+  </div>
+</footer>
+
+<script>
+/* ─── CURSOR ─── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx+'px'; cur.style.top = my+'px'; });
+
+(function animateRing() {
+  rx += (mx - rx) * .13;
+  ry += (my - ry) * .13;
+  ring.style.left = rx+'px';
+  ring.style.top = ry+'px';
+  requestAnimationFrame(animateRing);
+})();
+
+document.querySelectorAll('a, button, .menu-card, .rev-card, .g-item, .loc-card, .pill').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hover-cursor'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hover-cursor'));
+});
+
+/* ─── NAV SCROLL ─── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60));
+
+/* ─── SCROLL REVEAL ─── */
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+els.forEach(el => obs.observe(el));
+
+/* ─── SMOOTH SCROLL FOR ANCHORS ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
