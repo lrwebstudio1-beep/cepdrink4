@@ -333,8 +333,8 @@ nav.stuck {
 .gallery-masonry {
   max-width: 1200px; margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 220px 220px;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-rows: 240px 240px;
   gap: 1rem;
 }
 .g-item {
@@ -358,10 +358,8 @@ nav.stuck {
 .g-item:nth-child(1) { grid-column: 1; grid-row: 1; }
 .g-item:nth-child(2) { grid-column: 2; grid-row: 1 / 3; }
 .g-item:nth-child(3) { grid-column: 3; grid-row: 1; }
-.g-item:nth-child(4) { grid-column: 4; grid-row: 1; }
-.g-item:nth-child(5) { grid-column: 1; grid-row: 2; }
-.g-item:nth-child(6) { grid-column: 3; grid-row: 2; }
-.g-item:nth-child(7) { grid-column: 4; grid-row: 2; }
+.g-item:nth-child(4) { grid-column: 1; grid-row: 2; }
+.g-item:nth-child(5) { grid-column: 3; grid-row: 2; }
 
 /* ─── REVIEWS ─── */
 .reviews { background: var(--brown); }
@@ -501,6 +499,17 @@ footer {
   color: rgba(245,240,232,.4); transition: color .2s;
 }
 .footer-links a:hover { color: var(--gold); }
+.footer-powered {
+  width: 100%;
+  text-align: center;
+  font-size: .72rem;
+  color: rgba(245,240,232,.25);
+  letter-spacing: .08em;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-powered a { color: var(--gold); transition: color .2s; }
+.footer-powered a:hover { color: var(--cream); }
 
 /* ─── SCROLL REVEAL ─── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
@@ -589,7 +598,7 @@ footer {
   </div>
   <div class="hero-right">
     <div class="hero-img-wrap">
-      <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?w=1200&auto=format&fit=crop&q=80" alt="Cozy café atmosphere at Cep Drink">
+      <img src="IMG_2514.jpeg" alt="Cozy café atmosphere at Cep Drink">
       <div class="hero-img-overlay"></div>
     </div>
   </div>
@@ -624,13 +633,13 @@ footer {
   <div class="about-grid">
     <div class="about-imgs reveal">
       <div class="about-img-main">
-        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=80" alt="Inside Cep Drink café" style="height:100%">
+        <img src="IMG_2554.jpeg" alt="Inside Cep Drink café" style="height:100%">
       </div>
       <div class="about-img-sm">
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&auto=format&fit=crop&q=80" alt="Coffee at Cep Drink" style="height:100%">
+        <img src="IMG_2515.jpeg" alt="Coffee at Cep Drink" style="height:100%">
       </div>
       <div class="about-img-sm">
-        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=500&auto=format&fit=crop&q=80" alt="Drinks at Cep Drink" style="height:100%">
+        <img src="IMG_2516.jpeg" alt="Drinks at Cep Drink" style="height:100%">
       </div>
       <div class="about-sticker">Local<br>Fav ★</div>
     </div>
@@ -670,7 +679,7 @@ footer {
 
     <div class="menu-card reveal">
       <div class="menu-card-img">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop&q=80" alt="Coffee">
+        <img src="IMG_2537.jpeg" alt="Coffee">
         <div class="menu-card-badge">Fan Favourite</div>
       </div>
       <div class="menu-card-body">
@@ -682,7 +691,7 @@ footer {
 
     <div class="menu-card reveal reveal-d1">
       <div class="menu-card-img">
-        <img src="https://images.unsplash.com/photo-1615478503562-ec2d8aa0e24e?w=600&auto=format&fit=crop&q=80" alt="Fresh drinks and juices">
+        <img src="Screenshot 2026-03-16 001154.png" alt="Fresh drinks and juices">
         <div class="menu-card-badge">Fresh Daily</div>
       </div>
       <div class="menu-card-body">
@@ -727,32 +736,24 @@ footer {
   </div>
   <div class="gallery-masonry">
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&auto=format&fit=crop&q=80" alt="Coffee close-up">
+      <img src="1dc65f35-a14f-4ffd-aa0d-6b418567a5d0.jpeg" alt="Coffee close-up">
       <div class="g-overlay"><span class="g-label">Morning Coffee</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&auto=format&fit=crop&q=80" alt="Café atmosphere">
+      <img src="IMG_2516.jpeg" alt="Café atmosphere">
       <div class="g-overlay"><span class="g-label">Good Vibes</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80" alt="Fresh juice drinks">
+      <img src="IMG_3088.jpeg" alt="Fresh juice drinks">
       <div class="g-overlay"><span class="g-label">Fresh Drinks</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80" alt="Relaxed café corner">
+      <img src="IMG_2521.jpeg" alt="Relaxed café corner">
       <div class="g-overlay"><span class="g-label">Chill Corner</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=600&auto=format&fit=crop&q=80" alt="Sandwich snacks">
-      <div class="g-overlay"><span class="g-label">Quick Bites</span></div>
-    </div>
-    <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&auto=format&fit=crop&q=80" alt="Cocktail drinks">
-      <div class="g-overlay"><span class="g-label">Evening Drinks</span></div>
-    </div>
-    <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&auto=format&fit=crop&q=80" alt="Café table setting">
-      <div class="g-overlay"><span class="g-label">The Atmosphere</span></div>
+      <img src="IMG_2518.jpeg" alt="Sandwich snacks">
+      <div class="g-overlay"><span class="g-label"></span></div>
     </div>
   </div>
 </section>
@@ -875,6 +876,7 @@ footer {
     <a href="#location">Location</a>
     <a href="tel:+355693225005">Call</a>
   </div>
+  <div class="footer-powered">Powered by LR Web Studio Albania</div>
 </footer>
 
 <script>
